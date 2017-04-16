@@ -37,6 +37,16 @@ const Task = ({task, onClick}) => {
                 >
                     {task.text}
                 </div>
+                <div
+                    style={{
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                        width: 'calc(100vw + 110px)'
+                    }}
+                >
+                    {task.text}
+                </div>
             </div>
             <label className="right">
                 <Icon

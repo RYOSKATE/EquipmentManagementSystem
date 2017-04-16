@@ -17,7 +17,7 @@ const TaskDetailsPage = ({task, navigator}) => {
     const saveRentalLog = inputValue => {
         const user = inputValue.trim();
 
-        if (text) {
+        if (user) {
             RentalLogs.insert({
                 id: RentalLogs.find({}).count()+1,
                 user,
@@ -41,12 +41,12 @@ const TaskDetailsPage = ({task, navigator}) => {
     };
 
     const updateReturn = () => {
-        const id = RentalLogs.find({ $and: [
+        const _id = RentalLogs.findOne({ $and: [
             { item_id  : task.id },
-            { returned : false }
+            { returned : {$exists : false} }
         ] })._id;
-        
-        RentalLogs.update(id, {
+
+        RentalLogs.update(_id, {
             $set: { returned: true }
         });
     };
@@ -83,16 +83,16 @@ const TaskDetailsPage = ({task, navigator}) => {
     };
 
     const isUsed = () => {
-        return RentalLogs.find({ $and: [
+        return 0 < RentalLogs.find({ $and: [
             { item_id  : task.id },
-            { returned : false }
+            { returned : { $exists:false } }
         ] }).count();
     };
 
     const userName = () => {
-        return RentalLogs.find({ $and: [
+        return RentalLogs.findOne({ $and: [
             { item_id  : task.id },
-            { returned : false }
+            { returned : { $exists:false } }
         ] }).user;
     };
 
@@ -112,12 +112,14 @@ const TaskDetailsPage = ({task, navigator}) => {
             </Row>
             <Row>
                 <Col></Col>
-                {
-                    {isUsed} ?
-                        <Button onClick={handleReturnButton} modifier={"large"}>返却申請(現在の使用者:{userName()})</Button>
-                        :
-                        <Button onClick={handleRentalButton} modifier={"large"}>貸出申請</Button>
-                }
+                    {isUsed() ?
+                        (<Button onClick={handleReturnButton} modifier={"large"}>
+                            返却申請(現在の使用者:{userName()})
+                        </Button>) :
+                        (<Button onClick={handleRentalButton} modifier={"large"}>
+                            貸出申請
+                        </Button>)
+                    }
                 <Col></Col>
             </Row>
 
