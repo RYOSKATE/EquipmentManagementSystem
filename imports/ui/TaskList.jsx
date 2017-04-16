@@ -28,7 +28,7 @@ const TaskList = ({tasks, incompleteCount, navigator}) => {
     <List
       dataSource={tasks}
       renderRow={renderTask}
-      renderHeader={() => <ListHeader>{incompleteCount} pending tasks</ListHeader>}
+      renderHeader={() => <ListHeader>{incompleteCount} unused items</ListHeader>}
     />
   );
 };
@@ -42,6 +42,6 @@ TaskList.propTypes = {
 export default createContainer(() => {
   return {
     tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Tasks.find({ checked: { $ne: true } }).count()
+    incompleteCount: Tasks.find({ used: { $ne: false } }).count()
   };
 }, TaskList);

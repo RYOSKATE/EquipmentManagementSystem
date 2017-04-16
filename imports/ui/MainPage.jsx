@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Tasks } from '../api/tasks.js';
-
 import ons from 'onsenui';
 import { Page, Toolbar, Input, Fab, Icon, ToolbarButton } from 'react-onsenui';
 import TaskList from './TaskList.jsx';
@@ -22,7 +21,10 @@ const MainPage = ({navigator}) => {
 
     if (text) {
       Tasks.insert({
+          id: Tasks.find({}).count()+1,
         text,
+        group: "コンピュータ",
+        user: "ishizue",
         createdAt: new Date()
       });
 
