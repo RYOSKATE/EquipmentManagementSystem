@@ -10,7 +10,7 @@ const Task = ({task, onClick}) => {
         ons.notification.prompt({
             title: '備品貸出申請',
             message: '使用者の名前を入力してください',
-            placeholder: '早稲田　太郎',
+            placeholder: '例; 早稲田　太郎',
             cancelable: true,
             buttonLabel: 'この備品を借りる'
         }).then(saveRentalLog);
@@ -49,7 +49,7 @@ const Task = ({task, onClick}) => {
         ] })._id;
 
         RentalLogs.update(_id, {
-            $set: { returned: true }
+            $set: { returned: true, returnedAt: new Date() }
         });
     };
 

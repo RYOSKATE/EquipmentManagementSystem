@@ -1,10 +1,11 @@
 import { createContainer } from 'meteor/react-meteor-data';
 import React, { PropTypes } from 'react';
+import ons from 'onsenui';
 import { Input, Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
 import { Tasks } from '../api/tasks.js';
 import Task from './Task.jsx';
 
-const NewItemPage = ({navigator}) => {
+const NewItemPage = ({newItemId, navigator}) => {
 
     const renderToolbar = () => {
         return (
@@ -38,6 +39,30 @@ const NewItemPage = ({navigator}) => {
         return y + '-' + m + '-' + d;
     };
 
+    const handleAddItemClick = () => {
+        ons.notification.alert({
+            title: 'Add Item',
+            message: 'Do you want to add this?.',
+            cancelable: true
+        }).then(saveNewItem);
+    };
+
+    const saveNewItem = () => {
+        const group = document.getElementById('inputgroup').value;
+        const text  = document.getElementById('inputname').value;
+        if (group!=="" && text!=="") {
+            Tasks.insert({
+                id: Tasks.find({}).count()+1,
+                text,
+                group,
+                createdAt: new Date()
+            });
+
+        } else {
+            ons.notification.alert('You must provide all inputs!')
+        }
+    };
+
     return (
         <Page renderToolbar={renderToolbar} >
             <div className="center" style={{
@@ -53,7 +78,7 @@ const NewItemPage = ({navigator}) => {
                             float
                             disable
                             modifier='underbar'
-                            value={Tasks.find({}).count()+1} />
+                            value={newItemId+""} />
                     </Col>
                 </Row>
                 <Row>
@@ -62,7 +87,8 @@ const NewItemPage = ({navigator}) => {
                         <Input
                             type="text"
                             float
-                            inputId={`input-group`}
+                            //ref='inputgroup'
+                            inputId='inputgroup'
                             modifier='underbar'
                             placeholder='例: コンピュータ' />
                     </Col>
@@ -73,24 +99,26 @@ const NewItemPage = ({navigator}) => {
                         <Input
                             type="text"
                             float
-                            inputId={`input-name`}
+                            //ref='inputname'
+                            inputId='inputname'
                             modifier='underbar'
                             placeholder='例: MacBook Pro' />
                     </Col>
                 </Row>
-                <Row>
-                    <Col>　追加日</Col>
-                    <Col>
-                        <Input
-                            type="date"
-                            float
-                            inputId={`input-date`}
-                            modifier='underbar'
-                            value={formattedDate} />
-                    </Col>
-                </Row>
+                {/*<Row>*/}
+                    {/*<Col>　追加日</Col>*/}
+                    {/*<Col>*/}
+                        {/*<Input*/}
+                            {/*type="date"*/}
+                            {/*float*/}
+                            {/*//ref='inputdate'*/}
+                            {/*inputId='inputdate'*/}
+                            {/*modifier='underbar'*/}
+                            {/*value={formattedDate()} />*/}
+                    {/*</Col>*/}
+                {/*</Row>*/}
                 <section style={{margin: '16px'}}>
-                        <Button modifier='large--cta'>Add This Item</Button>
+                        <Button onClick={handleAddItemClick} modifier='large--cta'>Add This Item</Button>
                 </section>
             </div>
         </Page>
@@ -98,8 +126,11 @@ const NewItemPage = ({navigator}) => {
 };
 
 NewItemPage.propTypes = {
-    task: PropTypes.object.isRequired,
     navigator: PropTypes.object.isRequired
 };
 
-export default NewItemPage;
+export default createContainer(() => {
+    return {
+        newItemId: Tasks.find({}).count()+1
+    };
+}, NewItemPage);

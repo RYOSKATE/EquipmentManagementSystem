@@ -13,33 +13,7 @@ const MainPage = ({navigator}) => {
             key: 'NEW_ITEM_PAGE',
         });
     };
-
-    const _handleNewTaskClick = () => {
-        ons.notification.prompt({
-            title: 'New Task',
-            message: 'Include a task title.',
-            placeholder: 'I want to...',
-            cancelable: true,
-            buttonLabel: 'Save Task'
-        }).then(saveTask);
-    };
-
-    const saveTask = inputValue => {
-        const text = inputValue.trim();
-
-        if (text) {
-            Tasks.insert({
-                id: Tasks.find({}).count()+1,
-                text,
-                group: "コンピュータ",
-                createdAt: new Date()
-            });
-
-        } else {
-            ons.notification.alert('You must provide a task title!')
-        }
-    };
-
+    
     const renderToolbar = () => {
         return (
             <Toolbar>
