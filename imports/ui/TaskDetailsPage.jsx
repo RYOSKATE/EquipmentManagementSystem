@@ -1,56 +1,8 @@
 import { createContainer } from 'meteor/react-meteor-data';
 import React, { PropTypes } from 'react';
-import ons from 'onsenui';
 import { Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
-import { RentalLogs } from '../api/rentallogs.js';
 
 const TaskDetailsPage = ({task, navigator}) => {
-    const handleRentalButton = () => {
-        ons.notification.prompt({
-            title: '備品貸出申請',
-            message: '使用者の名前を入力してください',
-            placeholder: '早稲田　太郎',
-            cancelable: true,
-            buttonLabel: 'この備品を借りる'
-        }).then(saveRentalLog);
-    };
-
-    const saveRentalLog = inputValue => {
-        const user = inputValue.trim();
-
-        if (user) {
-            RentalLogs.insert({
-                id: RentalLogs.find({}).count()+1,
-                user,
-                item_id: task.id,
-                item_name: task.name,
-                createdAt: new Date(),
-            });
-
-        } else {
-            ons.notification.alert('名前を入力してください')
-        }
-    };
-
-    const handleReturnButton = () => {
-        ons.notification.confirm({
-            title: '返却申請',
-            message: 'この備品を返却しますか？',
-            cancelable: true,
-            buttonLabel: 'はい'
-        }).then(updateReturn);
-    };
-
-    const updateReturn = () => {
-        const _id = RentalLogs.findOne({ $and: [
-            { item_id  : task.id },
-            { returned : {$exists : false} }
-        ] })._id;
-
-        RentalLogs.update(_id, {
-            $set: { returned: true }
-        });
-    };
 
     const renderToolbar = () => {
         return (
@@ -64,6 +16,7 @@ const TaskDetailsPage = ({task, navigator}) => {
             </Toolbar>
         );
     };
+
     const formattedDate = () => {
         const date = new Date(task.createdAt);
         const y = date.getFullYear();
@@ -81,20 +34,6 @@ const TaskDetailsPage = ({task, navigator}) => {
 
         // フォーマット整形済みの文字列を戻り値にする
         return y + '年' + m + '月' + d + '日 (' + wNames[w] + ')';
-    };
-
-    const isUsed = () => {
-        return 0 < RentalLogs.find({ $and: [
-            { item_id  : task.id },
-            { returned : { $exists:false } }
-        ] }).count();
-    };
-
-    const userName = () => {
-        return RentalLogs.findOne({ $and: [
-            { item_id  : task.id },
-            { returned : { $exists:false } }
-        ] }).user;
     };
 
     return (
@@ -118,14 +57,7 @@ const TaskDetailsPage = ({task, navigator}) => {
                 </Row>
                 <Row>
                     <Col></Col>
-                        {isUsed() ?
-                            (<Button onClick={handleReturnButton} modifier={"large"}>
-                                返却申請(現在の使用者:{userName()})
-                            </Button>) :
-                            (<Button onClick={handleRentalButton} modifier={"large"}>
-                                貸出申請
-                            </Button>)
-                        }
+
                     <Col></Col>
                 </Row>
             </div>
@@ -138,8 +70,4 @@ TaskDetailsPage.propTypes = {
     navigator: PropTypes.object.isRequired
 };
 
-export default createContainer(() => {
-    return {
-        logs: RentalLogs.find({}, { sort: { createdAt: -1 } }).fetch()
-    };
-}, TaskDetailsPage);
+export default TaskDetailsPage;
