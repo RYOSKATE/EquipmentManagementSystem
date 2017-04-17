@@ -17,7 +17,7 @@ const MainPage = ({navigator}) => {
     const renderToolbar = () => {
         return (
             <Toolbar>
-                <div className="center">Todos</div>
+                <div className="center">Washi Lab. Items</div>
                 <div className="right">
                     {ons.platform.isAndroid() ? null :
                         (<ToolbarButton onClick={handleNewTaskClick} modifier="outline">

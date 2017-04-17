@@ -12,10 +12,10 @@ const NewItemPage = ({newItemId, navigator}) => {
             <Toolbar>
                 <div className='left'>
                     <BackButton onClick={() => navigator.popPage()}>
-                        <span className="back-button__label">Todos</span>
+                        <span className="back-button__label">Back</span>
                     </BackButton>
                 </div>
-                <div className="center">Task Details</div>
+                <div className="center">Add New Item</div>
             </Toolbar>
         );
     };
@@ -50,11 +50,13 @@ const NewItemPage = ({newItemId, navigator}) => {
     const saveNewItem = () => {
         const group = document.getElementById('inputgroup').value;
         const text  = document.getElementById('inputname').value;
+        const note = document.getElementById('inputnote').value;
         if (group!=="" && text!=="") {
             Tasks.insert({
                 id: Tasks.find({}).count()+1,
                 text,
                 group,
+                note,
                 createdAt: new Date()
             });
 
@@ -103,6 +105,18 @@ const NewItemPage = ({newItemId, navigator}) => {
                             inputId='inputname'
                             modifier='underbar'
                             placeholder='例: MacBook Pro' />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>備考</Col>
+                    <Col>
+                        <textarea
+                            className="textarea"
+                            placeholder="メモ"
+                            id="inputnote"
+                            style={{
+                                height: '100px'
+                            }}/>
                     </Col>
                 </Row>
                 {/*<Row>*/}

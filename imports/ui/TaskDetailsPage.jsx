@@ -9,10 +9,10 @@ const TaskDetailsPage = ({task, navigator}) => {
             <Toolbar>
                 <div className='left'>
                     <BackButton onClick={() => navigator.popPage()}>
-                        <span className="back-button__label">Todos</span>
+                        <span className="back-button__label">Back</span>
                     </BackButton>
                 </div>
-                <div className="center">Task Details</div>
+                <div className="center">Item Details</div>
             </Toolbar>
         );
     };
@@ -44,21 +44,19 @@ const TaskDetailsPage = ({task, navigator}) => {
                 whiteSpace: 'nowrap'
             }}>
                 <Row>
-                    <Col >　ID</Col><Col>{task.id}</Col>
+                    <Col >ID</Col><Col>{task.id}</Col>
                 </Row>
                 <Row>
-                    <Col>　種別</Col><Col>{task.group}</Col>
+                    <Col>種別</Col><Col>{task.group}</Col>
                 </Row>
                 <Row>
-                    <Col>　備品名</Col><Col>{task.text}</Col>
+                    <Col>備品名</Col><Col>{task.text}</Col>
                 </Row>
                 <Row>
-                    <Col>　追加日</Col><Col>{formattedDate()}</Col>
+                    <Col>追加日</Col><Col>{formattedDate()}</Col>
                 </Row>
                 <Row>
-                    <Col></Col>
-
-                    <Col></Col>
+                    <Col>備考</Col><Col>{task.note}</Col>
                 </Row>
             </div>
         </Page>
