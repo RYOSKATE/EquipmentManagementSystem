@@ -112,7 +112,6 @@ const NewItemPage = ({newItemId, navigator}) => {
                     <Col>
                         <textarea
                             className="textarea"
-                            placeholder="メモ"
                             id="inputnote"
                             style={{
                                 height: '100px'
