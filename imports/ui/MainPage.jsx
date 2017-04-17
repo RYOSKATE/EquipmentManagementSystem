@@ -3,9 +3,18 @@ import { Tasks } from '../api/tasks.js';
 import ons from 'onsenui';
 import { Row, Col, Page, Toolbar, Input, Fab, Icon, ToolbarButton } from 'react-onsenui';
 import TaskList from './TaskList.jsx';
+import NewItemPage from './NewItemPage.jsx';
 
 const MainPage = ({navigator}) => {
+
     const handleNewTaskClick = () => {
+        navigator.pushPage({
+            component: NewItemPage,
+            key: 'NEW_ITEM_PAGE',
+        });
+    };
+
+    const _handleNewTaskClick = () => {
         ons.notification.prompt({
             title: 'New Task',
             message: 'Include a task title.',
