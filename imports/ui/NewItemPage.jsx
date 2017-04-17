@@ -1,6 +1,8 @@
 import { createContainer } from 'meteor/react-meteor-data';
 import React, { PropTypes } from 'react';
-import { Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
+import { Input, Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
+import { Tasks } from '../api/tasks.js';
+import Task from './Task.jsx';
 
 const NewItemPage = ({navigator}) => {
 
@@ -18,7 +20,7 @@ const NewItemPage = ({navigator}) => {
     };
 
     const formattedDate = () => {
-        const date = new Date(task.createdAt);
+        const date = new Date();
         const y = date.getFullYear();
         var m = date.getMonth() + 1;
         var d = date.getDate();
@@ -33,7 +35,7 @@ const NewItemPage = ({navigator}) => {
         }
 
         // フォーマット整形済みの文字列を戻り値にする
-        return y + '年' + m + '月' + d + '日 (' + wNames[w] + ')';
+        return y + '-' + m + '-' + d;
     };
 
     return (
@@ -43,23 +45,53 @@ const NewItemPage = ({navigator}) => {
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap'
             }}>
-                <Row>
-                    <Col >　ID</Col><Col>{task.id}</Col>
+                <Row >
+                    <Col >　ID</Col>
+                    <Col>
+                        <Input
+                            type='number'
+                            float
+                            disable
+                            modifier='underbar'
+                            value={Tasks.find({}).count()+1} />
+                    </Col>
                 </Row>
                 <Row>
-                    <Col>　種別</Col><Col>{task.group}</Col>
+                    <Col>　種別</Col>
+                    <Col>
+                        <Input
+                            type="text"
+                            float
+                            inputId={`input-group`}
+                            modifier='underbar'
+                            placeholder='例: コンピュータ' />
+                    </Col>
                 </Row>
                 <Row>
-                    <Col>　備品名</Col><Col>{task.text}</Col>
+                    <Col>　備品名</Col>
+                    <Col>
+                        <Input
+                            type="text"
+                            float
+                            inputId={`input-name`}
+                            modifier='underbar'
+                            placeholder='例: MacBook Pro' />
+                    </Col>
                 </Row>
                 <Row>
-                    <Col>　追加日</Col><Col>{formattedDate()}</Col>
+                    <Col>　追加日</Col>
+                    <Col>
+                        <Input
+                            type="date"
+                            float
+                            inputId={`input-date`}
+                            modifier='underbar'
+                            value={formattedDate} />
+                    </Col>
                 </Row>
-                <Row>
-                    <Col></Col>
-
-                    <Col></Col>
-                </Row>
+                <section style={{margin: '16px'}}>
+                        <Button modifier='large--cta'>Add This Item</Button>
+                </section>
             </div>
         </Page>
     );

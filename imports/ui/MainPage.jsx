@@ -21,8 +21,7 @@ const MainPage = ({navigator}) => {
             placeholder: 'I want to...',
             cancelable: true,
             buttonLabel: 'Save Task'
-        })
-            .then(saveTask);
+        }).then(saveTask);
     };
 
     const saveTask = inputValue => {
@@ -47,7 +46,7 @@ const MainPage = ({navigator}) => {
                 <div className="center">Todos</div>
                 <div className="right">
                     {ons.platform.isAndroid() ? null :
-                        (<ToolbarButton onClick={handleNewTaskClick}>
+                        (<ToolbarButton onClick={handleNewTaskClick} modifier="outline">
                             New
                         </ToolbarButton>)
                     }
