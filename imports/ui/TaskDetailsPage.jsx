@@ -1,3 +1,4 @@
+import { createContainer } from 'meteor/react-meteor-data';
 import React, { PropTypes } from 'react';
 import ons from 'onsenui';
 import { Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
@@ -98,31 +99,36 @@ const TaskDetailsPage = ({task, navigator}) => {
 
     return (
         <Page renderToolbar={renderToolbar} >
-            <Row>
-                <Col>　ID</Col><Col>{task.id}</Col>
-            </Row>
-            <Row>
-                <Col>　種別</Col><Col>{task.group}</Col>
-            </Row>
-            <Row>
-                <Col>　備品名</Col><Col>{task.text}</Col>
-            </Row>
-            <Row>
-                <Col>　追加日</Col><Col>{formattedDate()}</Col>
-            </Row>
-            <Row>
-                <Col></Col>
-                    {isUsed() ?
-                        (<Button onClick={handleReturnButton} modifier={"large"}>
-                            返却申請(現在の使用者:{userName()})
-                        </Button>) :
-                        (<Button onClick={handleRentalButton} modifier={"large"}>
-                            貸出申請
-                        </Button>)
-                    }
-                <Col></Col>
-            </Row>
-
+            <div className="center" style={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap'
+            }}>
+                <Row>
+                    <Col >　ID</Col><Col>{task.id}</Col>
+                </Row>
+                <Row>
+                    <Col>　種別</Col><Col>{task.group}</Col>
+                </Row>
+                <Row>
+                    <Col>　備品名</Col><Col>{task.text}</Col>
+                </Row>
+                <Row>
+                    <Col>　追加日</Col><Col>{formattedDate()}</Col>
+                </Row>
+                <Row>
+                    <Col></Col>
+                        {isUsed() ?
+                            (<Button onClick={handleReturnButton} modifier={"large"}>
+                                返却申請(現在の使用者:{userName()})
+                            </Button>) :
+                            (<Button onClick={handleRentalButton} modifier={"large"}>
+                                貸出申請
+                            </Button>)
+                        }
+                    <Col></Col>
+                </Row>
+            </div>
         </Page>
     );
 };
@@ -132,4 +138,8 @@ TaskDetailsPage.propTypes = {
     navigator: PropTypes.object.isRequired
 };
 
-export default TaskDetailsPage;
+export default createContainer(() => {
+    return {
+        logs: RentalLogs.find({}, { sort: { createdAt: -1 } }).fetch()
+    };
+}, TaskDetailsPage);

@@ -24,7 +24,6 @@ const MainPage = ({navigator}) => {
           id: Tasks.find({}).count()+1,
         text,
         group: "コンピュータ",
-        user: "ishizue",
         createdAt: new Date()
       });
 
