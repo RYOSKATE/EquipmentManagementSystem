@@ -52,12 +52,18 @@ const MainPage = ({currentUser, navigator}) => {
         >
             <div className="center"  >
                 <Row>
-                    <Col ><AccountsUIWrapper /></Col>
-                    <Col >Label</Col>
-                    <Col >Group</Col>
-                    <Col >Name</Col>
-                    <Col >used by</Col>
-                    <Col >used from</Col>
+                    <Col witdh="20%"><AccountsUIWrapper /></Col>
+                    <Col witdh="15%" >Label</Col>
+                    {ons.orientation.isLandscape() ?
+                        (<Col >Group</Col>):null
+                    }
+                    <Col {ons.orientation.isLandscape()?width="50%":null}>Name</Col>
+                    {ons.orientation.isLandscape() ?
+                        (<Col >used by</Col>):null
+                    }
+                    {ons.orientation.isLandscape() ?
+                        (<Col >used from</Col>):null
+                    }
                 </Row>
             </div>
             <TaskList navigator={navigator}/>

@@ -96,7 +96,7 @@ const Task = ({currentUser, task, onClick}) => {
     return (
         <ListItem modifier="longdivider" tappable>
             <div className="center" style={{height: '25px'}}>
-                <Col >{
+                <Col witdh="20%">{
                     isUsed()!=="" ?
                         (<Button onClick={handleReturnButton} modifier={"material"}>
                             返却申請
@@ -105,11 +105,22 @@ const Task = ({currentUser, task, onClick}) => {
                             貸出申請
                         </Button>)
                 }</Col>
-                <Col onClick={onClick}>{task.id}</Col>
-                <Col onClick={onClick}>{task.group}</Col>
-                <Col onClick={onClick}>{task.text}</Col>
-                <Col onClick={onClick}>{isUsed()}</Col>
-                <Col onClick={onClick}>{usedFrom()}</Col>
+
+                <Col witdh="15%" onClick={onClick}>{task.id}</Col>
+
+                {ons.orientation.isLandscape() ?
+                    (<Col onClick={onClick}>{task.group}</Col>):null
+                }
+
+                <Col {ons.orientation.isLandscape()?width="50%":null} onClick={onClick}>{task.text}</Col>
+
+                {ons.orientation.isLandscape() ?
+                    (<Col onClick={onClick}>{isUsed()}</Col>):null
+                }
+
+                {ons.orientation.isLandscape() ?
+                    (<Col onClick={onClick}>{usedFrom()}</Col>):null
+                }
             </div>
         </ListItem>
     );
