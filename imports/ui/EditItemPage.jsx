@@ -54,6 +54,7 @@ const EditItemPage = ({task, navigator}) => {
 
     const deleteItem = () => {
         Tasks.remove({_id : task._id});
+        navigator.popPage();
     };
 
     return (

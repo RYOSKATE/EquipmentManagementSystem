@@ -55,7 +55,7 @@ TaskList.propTypes = {
 
 export default createContainer(() => {
     return {
-        tasks: Tasks.find({}, { sort: { createdAt: 1 } }).fetch(),
+        tasks: Tasks.find({}, { sort: { id: 1 } }).fetch(),
         incompleteCount: Tasks.find({ used: { $ne: false } }).count(),
         currentUser: Meteor.user()
     };
