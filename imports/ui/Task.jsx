@@ -95,7 +95,7 @@ const Task = ({currentUser, task, onClick}) => {
 
     return (
         <ListItem modifier="longdivider" tappable>
-            <div className="center">
+            <div className="center" style={{height: '25px'}}>
                 <Col >{
                     isUsed()!=="" ?
                         (<Button onClick={handleReturnButton} modifier={"material"}>
