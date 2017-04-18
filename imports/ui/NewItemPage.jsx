@@ -28,7 +28,7 @@ const NewItemPage = ({newItemId, navigator}) => {
     };
 
     const saveNewItem = () => {
-        const id = Number(document.getElementById('inpuid').value);
+        const id = Number(document.getElementById('inputid').value);
         const group = document.getElementById('inputgroup').value;
         const text  = document.getElementById('inputname').value;
         const note = document.getElementById('inputnote').value;
