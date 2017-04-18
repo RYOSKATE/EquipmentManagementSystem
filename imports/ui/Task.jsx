@@ -66,10 +66,6 @@ const Task = ({task, onClick}) => {
     return (
         <ListItem modifier="longdivider" tappable>
             <div className="center">
-                <Col onClick={onClick}>{task.id}</Col>
-                <Col onClick={onClick}>{task.group}</Col>
-                <Col onClick={onClick}>{task.text}</Col>
-                <Col onClick={onClick}>{isUsed()}</Col>
                 <Col >{
                     isUsed()!=="" ?
                         (<Button onClick={handleReturnButton} modifier={"material"}>
@@ -79,6 +75,10 @@ const Task = ({task, onClick}) => {
                             貸出申請
                         </Button>)
                 }</Col>
+                <Col onClick={onClick}>{task.id}</Col>
+                <Col onClick={onClick}>{task.group}</Col>
+                <Col onClick={onClick}>{task.text}</Col>
+                <Col onClick={onClick}>{isUsed()}</Col>
             </div>
         </ListItem>
     );

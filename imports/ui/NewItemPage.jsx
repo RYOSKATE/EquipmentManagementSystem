@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react';
 import ons from 'onsenui';
 import { Input, Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
 import { Tasks } from '../api/tasks.js';
-import Task from './Task.jsx';
 
 const NewItemPage = ({newItemId, navigator}) => {
 

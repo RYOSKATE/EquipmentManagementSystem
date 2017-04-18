@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Tasks } from '../api/tasks.js';
 import ons from 'onsenui';
-import { Row, Col, Page, Toolbar, Input, Fab, Icon, ToolbarButton } from 'react-onsenui';
+import { Dialog, Row, Col, Page, Toolbar, Input, Fab, Icon, ToolbarButton } from 'react-onsenui';
 import TaskList from './TaskList.jsx';
 import NewItemPage from './NewItemPage.jsx';
+import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 const MainPage = ({navigator}) => {
 
@@ -13,7 +13,7 @@ const MainPage = ({navigator}) => {
             key: 'NEW_ITEM_PAGE',
         });
     };
-    
+
     const renderToolbar = () => {
         return (
             <Toolbar>
@@ -42,6 +42,19 @@ const MainPage = ({navigator}) => {
         )
             : null;
     };
+    const getInitialState = () => {
+        return {
+            dialogShown: false
+        };
+    };
+
+    showDialog = () =>{
+        this.setState({dialogShown: true});
+    };
+
+    hideDialog = () =>{
+        this.setState({dialogShown: false});
+    };
 
     return (
         <Page
@@ -50,11 +63,11 @@ const MainPage = ({navigator}) => {
         >
             <div className="center"  >
                 <Row>
+                    <Col ><AccountsUIWrapper /></Col>
                     <Col >Label</Col>
                     <Col >Group</Col>
                     <Col >Name</Col>
                     <Col >used by</Col>
-                    <Col >　</Col>
                 </Row>
             </div>
             <TaskList navigator={navigator}/>
