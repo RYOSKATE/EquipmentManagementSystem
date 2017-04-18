@@ -63,6 +63,34 @@ const Task = ({task, onClick}) => {
         ] }).user : "";
     };
 
+    const formattedDate = date => {
+        const y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+        const w = date.getDay();
+        const wNames = ['日', '月', '火', '水', '木', '金', '土'];
+
+        if (m < 10) {
+            m = '0' + m;
+        }
+        if (d < 10) {
+            d = '0' + d;
+        }
+
+        // フォーマット整形済みの文字列を戻り値にする
+        return y + '年' + m + '月' + d + '日 (' + wNames[w] + ')';
+    };
+
+    const usedFrom = () => {
+        return 0 < RentalLogs.find({ $and: [
+            { item_id  : task.id },
+            { returned : { $exists:false } }
+        ] }).count() ? formattedDate(RentalLogs.findOne({ $and: [
+            { item_id  : task.id },
+            { returned : { $exists:false } }
+        ] }).createdAt) : "";
+    };
+
     return (
         <ListItem modifier="longdivider" tappable>
             <div className="center">
@@ -79,6 +107,7 @@ const Task = ({task, onClick}) => {
                 <Col onClick={onClick}>{task.group}</Col>
                 <Col onClick={onClick}>{task.text}</Col>
                 <Col onClick={onClick}>{isUsed()}</Col>
+                <Col onClick={onClick}>{usedFrom()}</Col>
             </div>
         </ListItem>
     );

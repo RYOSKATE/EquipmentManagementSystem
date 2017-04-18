@@ -1,11 +1,13 @@
+import { createContainer } from 'meteor/react-meteor-data';
 import React, { PropTypes } from 'react';
 import ons from 'onsenui';
+import { Meteor } from 'meteor/meteor';
 import { Dialog, Row, Col, Page, Toolbar, Input, Fab, Icon, ToolbarButton } from 'react-onsenui';
 import TaskList from './TaskList.jsx';
 import NewItemPage from './NewItemPage.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-const MainPage = ({navigator}) => {
+const MainPage = ({currentUser, navigator}) => {
 
     const handleNewTaskClick = () => {
         navigator.pushPage({
@@ -19,10 +21,10 @@ const MainPage = ({navigator}) => {
             <Toolbar>
                 <div className="center">Washi Lab. Items</div>
                 <div className="right">
-                    {ons.platform.isAndroid() ? null :
+                    {currentUser ?
                         (<ToolbarButton onClick={handleNewTaskClick} modifier="outline">
                             New
-                        </ToolbarButton>)
+                        </ToolbarButton>): null
                     }
                 </div>
             </Toolbar>
@@ -42,19 +44,6 @@ const MainPage = ({navigator}) => {
         )
             : null;
     };
-    const getInitialState = () => {
-        return {
-            dialogShown: false
-        };
-    };
-
-    showDialog = () =>{
-        this.setState({dialogShown: true});
-    };
-
-    hideDialog = () =>{
-        this.setState({dialogShown: false});
-    };
 
     return (
         <Page
@@ -68,6 +57,7 @@ const MainPage = ({navigator}) => {
                     <Col >Group</Col>
                     <Col >Name</Col>
                     <Col >used by</Col>
+                    <Col >used from</Col>
                 </Row>
             </div>
             <TaskList navigator={navigator}/>
@@ -79,4 +69,8 @@ MainPage.propTypes = {
     navigator: PropTypes.object
 };
 
-export default MainPage;
+export default createContainer(() => {
+    return {
+        currentUser: Meteor.user()
+    };
+}, MainPage);
