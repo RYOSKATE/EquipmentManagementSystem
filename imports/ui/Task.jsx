@@ -2,19 +2,21 @@ import { createContainer } from 'meteor/react-meteor-data';
 import React, { PropTypes } from 'react';
 import { Button, Row, Col, ListItem, Input, Icon } from 'react-onsenui';
 import ons from 'onsenui';
-import { Tasks } from '../api/tasks.js';
+import { Meteor } from 'meteor/meteor';
 import { RentalLogs } from '../api/rentallogs.js';
 
-const Task = ({task, onClick}) => {
+const Task = ({currentUser, task, onClick}) => {
     const handleRentalButton = () => {
         ons.notification.prompt({
             title: '備品貸出申請',
             message: '使用者の名前を入力してください',
-            placeholder: '例; 早稲田　太郎',
+            placeholder: '例: 早稲田　太郎',
+            defaultValue: (currentUser ? currentUser.username : ""),
             cancelable: true,
             buttonLabel: 'この備品を借りる'
         }).then(saveRentalLog);
     };
+
 
     const saveRentalLog = inputValue => {
         const user = inputValue.trim();
@@ -120,6 +122,7 @@ Task.propTypes = {
 
 export default createContainer(() => {
     return {
-        logs: RentalLogs.find({}).fetch()
+        logs: RentalLogs.find({}).fetch(),
+        currentUser: Meteor.user()
     };
 }, Task);
