@@ -36,7 +36,7 @@ const NewItemPage = ({newItemId, navigator}) => {
             ons.notification.alert('ID must be unique!!');
         }else if (group!=="" && text!=="") {
             Tasks.insert({
-                id:
+                id,
                 text,
                 group,
                 note,
