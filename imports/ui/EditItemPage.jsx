@@ -4,7 +4,7 @@ import ons from 'onsenui';
 import { Input, Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
 import { Tasks } from '../api/tasks.js';
 
-const NewItemPage = ({newItemId, navigator}) => {
+const EditItemPage = ({task, navigator}) => {
 
     const renderToolbar = () => {
         return (
@@ -14,38 +14,46 @@ const NewItemPage = ({newItemId, navigator}) => {
                         <span className="back-button__label">Back</span>
                     </BackButton>
                 </div>
-                <div className="center">Add New Item</div>
+                <div className="center">Edit Item</div>
             </Toolbar>
         );
     };
 
-    const handleAddItemClick = () => {
+    const handleUpdateItemClick = () => {
         ons.notification.alert({
-            title: 'Add Item',
-            message: 'Do you want to add this?.',
+            title: 'Update',
+            message: 'Do you want to update this?.',
             cancelable: true
-        }).then(saveNewItem);
+        }).then(updateItem);
     };
 
-    const saveNewItem = () => {
-        const id = Number(document.getElementById('inpuid').value);
-        const group = document.getElementById('inputgroup').value;
-        const text  = document.getElementById('inputname').value;
-        const note = document.getElementById('inputnote').value;
-        if((id != newItemId)   &&   (0 < Tasks.find({ id:  id }).count())){
-            ons.notification.alert('ID must be unique!!');
+    const updateItem = () => {
+        const id = Number(document.getElementById('editid').value);
+        const group = document.getElementById('editgroup').value;
+        const text  = document.getElementById('editname').value;
+        const note = document.getElementById('editnote').value;
+        if((id != task.id)   &&   (0 < Tasks.find({ id:  id }).count())){
+                ons.notification.alert('ID must be unique!!');
         }else if (group!=="" && text!=="") {
-            Tasks.insert({
-                id:
-                text,
-                group,
-                note,
-                createdAt: new Date()
+            Tasks.update(task._id, {
+                $set: {id, text, group, note }
             });
-            ons.notification.alert('Success!');
+            ons.notification.alert('Edit Success!');
         } else {
-            ons.notification.alert('You must provide all inputs!')
+            ons.notification.alert('You must provide all inputs!');
         }
+    };
+
+    const handleDeleteItemClick = () => {
+        ons.notification.alert({
+            title: 'Delete',
+            message: 'Do you want to Delete this?.',
+            cancelable: true
+        }).then(deleteItem);
+    };
+
+    const deleteItem = () => {
+        Tasks.remove({_id : task._id});
     };
 
     return (
@@ -61,10 +69,10 @@ const NewItemPage = ({newItemId, navigator}) => {
                         <Input
                             type='number'
                             float
-                            number
-                            inputId='inputid'
+                            disable
+                            inputId='editid'
                             modifier='underbar'
-                            value={newItemId} />
+                            value={task.id} />
                     </Col>
                 </Row>
                 <Row>
@@ -73,9 +81,9 @@ const NewItemPage = ({newItemId, navigator}) => {
                         <Input
                             type="text"
                             float
-                            //ref='inputgroup'
-                            inputId='inputgroup'
+                            inputId='editgroup'
                             modifier='underbar'
+                            value={task.group}
                             placeholder='例: コンピュータ' />
                     </Col>
                 </Row>
@@ -85,9 +93,9 @@ const NewItemPage = ({newItemId, navigator}) => {
                         <Input
                             type="text"
                             float
-                            //ref='inputname'
-                            inputId='inputname'
+                            inputId='editname'
                             modifier='underbar'
+                            value={task.text}
                             placeholder='例: MacBook Pro' />
                     </Col>
                 </Row>
@@ -96,26 +104,31 @@ const NewItemPage = ({newItemId, navigator}) => {
                     <Col>
                         <textarea
                             className="textarea"
-                            id="inputnote"
+                            id="editnote"
+                            defaultValue={task.note}
                             style={{
                                 height: '100px'
                             }}/>
                     </Col>
                 </Row>
                 <section style={{margin: '16px'}}>
-                        <Button onClick={handleAddItemClick} modifier='large--cta'>Add This Item</Button>
+                    <Button onClick={handleUpdateItemClick} modifier='large--cta'>Update</Button>
                 </section>
             </div>
+            <section style={{margin: '16px'}}>
+                <Button onClick={handleDeleteItemClick} modifier='light'>Delete</Button>
+            </section>
         </Page>
     );
 };
 
-NewItemPage.propTypes = {
+EditItemPage.propTypes = {
+    task: PropTypes.object.isRequired,
     navigator: PropTypes.object.isRequired
 };
 
 export default createContainer(() => {
     return {
-        newItemId: Tasks.find({}).count()+1
+
     };
-}, NewItemPage);
+}, EditItemPage);
