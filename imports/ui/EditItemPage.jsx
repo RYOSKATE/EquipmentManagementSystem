@@ -123,6 +123,7 @@ const EditItemPage = ({task, navigator}) => {
             <section style={{margin: '16px'}}>
                 <Button onClick={handleDeleteItemClick} modifier='light'>Delete</Button>
             </section>
+            <LogList task={task}/>
         </Page>
     );
 };

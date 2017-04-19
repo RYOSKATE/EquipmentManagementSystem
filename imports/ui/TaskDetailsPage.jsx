@@ -1,6 +1,7 @@
 import { createContainer } from 'meteor/react-meteor-data';
 import React, { PropTypes } from 'react';
 import { Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
+import LogList from './LogList';
 
 const TaskDetailsPage = ({task, navigator}) => {
 
@@ -44,21 +45,22 @@ const TaskDetailsPage = ({task, navigator}) => {
                 whiteSpace: 'nowrap'
             }}>
                 <Row>
-                    <Col >ID</Col><Col>{task.id}</Col>
+                    <Col>　ID</Col><Col>{task.id}</Col>
                 </Row>
                 <Row>
-                    <Col>種別</Col><Col>{task.group}</Col>
+                    <Col>　種別</Col><Col>{task.group}</Col>
                 </Row>
                 <Row>
-                    <Col>備品名</Col><Col>{task.text}</Col>
+                    <Col>　備品名</Col><Col>{task.text}</Col>
                 </Row>
                 <Row>
-                    <Col>追加日</Col><Col>{formattedDate()}</Col>
+                    <Col>　追加日</Col><Col>{formattedDate()}</Col>
                 </Row>
                 <Row>
-                    <Col>備考</Col><Col>{task.note}</Col>
+                    <Col>　備考</Col><Col>{task.note}</Col>
                 </Row>
             </div>
+            <LogList task={task}/>
         </Page>
     );
 };

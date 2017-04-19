@@ -51,7 +51,7 @@ const MainPage = ({ currentUser, navigator}) => {
             renderFixed={renderFixed}
         >
             <TaskList navigator={navigator}/>
-            <span>　<AccountsUIWrapper /></span>
+            <span><AccountsUIWrapper /></span>
         </Page>
     );
 };

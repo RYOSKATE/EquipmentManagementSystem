@@ -36,7 +36,7 @@ const TaskList = ({currentUser, tasks, incompleteCount, navigator}) => {
     const _renderHeader = () => {
         return(
             <ListHeader>
-                <div className="center">
+                <div className="center"  >
                     <Row >
                         <Col width="27px">No</Col>
                         <Col width="65px"> </Col>
