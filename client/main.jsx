@@ -13,6 +13,9 @@ Meteor.startup(() => {
     ons.orientation.on("change", function(event) {
         render(<App />, document.getElementById('render-target'));
     });
+    ons.setDefaultDeviceBackButtonListener(function() {
+        navigator.popPage();
+    });
   ons.ready(() => {
     render(<App />, document.getElementById('render-target'));
   });
