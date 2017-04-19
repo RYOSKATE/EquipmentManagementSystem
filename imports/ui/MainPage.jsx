@@ -31,25 +31,9 @@ const MainPage = ({ currentUser, navigator}) => {
         );
     };
 
-    const renderFixed = () => {
-        return ons.platform.isAndroid() ? (
-            <Fab
-                onClick={handleNewTaskClick}
-                position='bottom right'
-            >
-                <Icon
-                    icon='md-edit'
-                />
-            </Fab>
-        )
-            : null;
-    };
 
     return (
-        <Page
-            renderToolbar={renderToolbar}
-            renderFixed={renderFixed}
-        >
+        <Page renderToolbar={renderToolbar} >
             <TaskList navigator={navigator}/>
             <span><AccountsUIWrapper /></span>
         </Page>
