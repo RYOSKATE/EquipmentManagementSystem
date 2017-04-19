@@ -32,16 +32,17 @@ const TaskList = ({currentUser, tasks, incompleteCount, navigator}) => {
 
     };
 
+
     const _renderHeader = () => {
         return(
             <ListHeader>
-                <div className="center"  >
+                <div className="center">
                     <Row >
-                        <Col width="50px">No</Col>
+                        <Col width="27px">No</Col>
+                        <Col width="65px"> </Col>
                         { ons.orientation.isLandscape() ? (<Col >Group</Col>) : null }
                         <Col>Name</Col>
-                        <Col>used by</Col>
-                        <Col width="80px">　</Col>
+                        <Col>Used by</Col>
                     </Row>
                 </div>
             </ListHeader>

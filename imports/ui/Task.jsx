@@ -93,10 +93,21 @@ const Task = ({currentUser, task, onClick}) => {
         ] }).createdAt) : "";
     };
 
+
     return (
         <ListItem modifier="longdivider" tappable>
             <div className="center"  style={{padding: "2px 1px 2px 1px"}}>
-                <Col width="50px" onClick={onClick}>{String(task.id).trim()}</Col>
+                <Col width="27px" onClick={onClick}>{String(task.id).trim()}</Col>
+
+                <Col width="65px">{
+                    isUsed()!=="" ?
+                        (<Button onClick={handleReturnButton} modifier={"outline"}>
+                            返却
+                        </Button>) :
+                        (<Button onClick={handleRentalButton} >
+                            貸出
+                        </Button>)
+                }</Col>
 
                 { ons.orientation.isLandscape() ? (<Col onClick={onClick}>{task.group}</Col>) : null}
 
@@ -110,15 +121,7 @@ const Task = ({currentUser, task, onClick}) => {
                     <Row>{usedFrom()}</Row>
                 </Col>
 
-                <Col width="80px">{
-                    isUsed()!=="" ?
-                        (<Button onClick={handleReturnButton} modifier={"outline"}>
-                            返却
-                        </Button>) :
-                        (<Button onClick={handleRentalButton} >
-                            貸出
-                        </Button>)
-                }</Col>
+
             </div>
         </ListItem>
     );
