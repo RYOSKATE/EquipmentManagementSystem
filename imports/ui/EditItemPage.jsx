@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import ons from 'onsenui';
 import { Input, Dialog, Button, Row, Col, Page, Toolbar, BackButton } from 'react-onsenui';
 import { Tasks } from '../api/tasks.js';
+import LogList from './LogList';
 
 const EditItemPage = ({task, navigator}) => {
 
