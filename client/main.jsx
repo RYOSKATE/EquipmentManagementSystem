@@ -10,11 +10,10 @@ import '../imports/startup/accounts-config.js';
 import App from '../imports/ui/App.jsx';
 
 Meteor.startup(() => {
+    ons.orientation.on("change", function(event) {
+        render(<App />, document.getElementById('render-target'));
+    });
   ons.ready(() => {
-    // if(ons.platform.isAndroid()){
-    //     ons.forcePlatformStyling("ios");
-    // }
-
     render(<App />, document.getElementById('render-target'));
   });
 });

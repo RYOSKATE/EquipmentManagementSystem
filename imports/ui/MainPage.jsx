@@ -51,16 +51,16 @@ const MainPage = ({ currentUser, navigator}) => {
             renderFixed={renderFixed}
         >
             <div className="center"  >
-                <Row>
-                    <Col width="4%">No.</Col>
-                    <Col width="20%" >Group</Col>
+                <Row >
+                    <Col width="50px">No</Col>
+                    { ons.orientation.isLandscape() ? (<Col >Group</Col>) : null }
                     <Col>Name</Col>
-                    <Col width="20%">used by/from</Col>
-                    <Col width="10%" >　</Col>
+                    <Col>used by</Col>
+                    <Col width="80px">　</Col>
                 </Row>
             </div>
             <TaskList navigator={navigator}/>
-            <AccountsUIWrapper />
+            <span>　<AccountsUIWrapper /></span>
         </Page>
     );
 };

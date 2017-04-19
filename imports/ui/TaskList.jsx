@@ -40,6 +40,7 @@ const TaskList = ({currentUser, tasks, incompleteCount, navigator}) => {
 
     return (
         <List
+            modifier="inset"
             dataSource={tasks}
             renderRow={renderTask}
             //renderHeader={() => <ListHeader> </ListHeader> }

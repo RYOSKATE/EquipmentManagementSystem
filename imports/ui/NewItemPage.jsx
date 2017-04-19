@@ -55,6 +55,7 @@ const NewItemPage = ({newItemId, navigator}) => {
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap'
             }}>
+                <Row>　</Row>
                 <Row >
                     <Col >　ID</Col>
                     <Col>
@@ -67,6 +68,7 @@ const NewItemPage = ({newItemId, navigator}) => {
                             value={newItemId} />
                     </Col>
                 </Row>
+                <Row>　</Row>
                 <Row>
                     <Col>　種別</Col>
                     <Col>
@@ -79,6 +81,7 @@ const NewItemPage = ({newItemId, navigator}) => {
                             placeholder='例: コンピュータ' />
                     </Col>
                 </Row>
+                <Row>　</Row>
                 <Row>
                     <Col>　備品名</Col>
                     <Col>
@@ -91,8 +94,9 @@ const NewItemPage = ({newItemId, navigator}) => {
                             placeholder='例: MacBook Pro' />
                     </Col>
                 </Row>
+                <Row>　</Row>
                 <Row>
-                    <Col>備考</Col>
+                    <Col>　備考</Col>
                     <Col>
                         <textarea
                             className="textarea"
