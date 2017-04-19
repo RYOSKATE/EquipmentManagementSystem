@@ -1,8 +1,8 @@
 import { createContainer } from 'meteor/react-meteor-data';
 import React, { PropTypes } from 'react';
 import { Tasks } from '../api/tasks.js';
-
-import { Col, List, ListHeader } from 'react-onsenui';
+import ons from 'onsenui';
+import { Row, Col, List, ListHeader } from 'react-onsenui';
 import TaskDetailsPage from './TaskDetailsPage.jsx';
 import EditItemPage from './EditItemPage.jsx';
 import { Meteor } from 'meteor/meteor';
@@ -32,6 +32,22 @@ const TaskList = ({currentUser, tasks, incompleteCount, navigator}) => {
 
     };
 
+    const _renderHeader = () => {
+        return(
+            <ListHeader>
+                <div className="center"  >
+                    <Row >
+                        <Col width="50px">No</Col>
+                        { ons.orientation.isLandscape() ? (<Col >Group</Col>) : null }
+                        <Col>Name</Col>
+                        <Col>used by</Col>
+                        <Col width="80px">　</Col>
+                    </Row>
+                </div>
+            </ListHeader>
+        );
+    };
+
     const renderTask = (task, index) => {
         return (
             <Task key={task._id} onClick={() => taskClickHandler(index)} task={task} />
@@ -42,6 +58,7 @@ const TaskList = ({currentUser, tasks, incompleteCount, navigator}) => {
         <List
             modifier="inset"
             dataSource={tasks}
+            renderHeader={_renderHeader}
             renderRow={renderTask}
             //renderHeader={() => <ListHeader> </ListHeader> }
         />
