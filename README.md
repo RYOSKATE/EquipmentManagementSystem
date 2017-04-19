@@ -8,7 +8,6 @@
 ## Quick Start
 
 1. First, install meteor from
-
 https://www.meteor.com/install
 
 2. Then, `git clone` or download this project.
