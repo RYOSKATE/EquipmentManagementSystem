@@ -47,7 +47,7 @@ const LogList = ({currentUser, task, logs}) => {
         return (
             <ListItem modifier="longdivider" tappable>
                 <div className="center"  style={{padding: "2px 1px 2px 1px"}}>
-                    <Col width="27px">index</Col>
+                    <Col width="27px">{index+1}</Col>
                     <Col>{log.user}</Col>
                     <Col>{formattedDate(log.createdAt)}</Col>
                     <Col>{formattedDate(log.returnedAt)}</Col>
