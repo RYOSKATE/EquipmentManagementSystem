@@ -97,11 +97,13 @@ const Task = ({currentUser, task, onClick}) => {
         <ListItem modifier="longdivider" tappable>
             <div className="center" style={{height: '25px'}}>
                 <Col width="5%" onClick={onClick}>{String(task.id).trim()}</Col>
-                <Col onClick={onClick}>{task.group}</Col>
-                <Col width="33%" onClick={onClick}>{task.text}</Col>
-                <Col onClick={onClick}>{isUsed()}</Col>
-                <Col onClick={onClick}>{usedFrom()}</Col>
-                <Col>{
+                <Col width="20%" onClick={onClick}>{task.group}</Col>
+                <Col onClick={onClick}>{task.text}</Col>
+                <Col width="15%" onClick={onClick}>
+                    <Row>{isUsed()}</Row>
+                    <Row>{usedFrom()}</Row>
+                </Col>
+                <Col width="15%" >{
                     isUsed()!=="" ?
                         (<Button onClick={handleReturnButton} modifier={"outline"}>
                             返却申請

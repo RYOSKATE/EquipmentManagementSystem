@@ -53,11 +53,10 @@ const MainPage = ({ currentUser, navigator}) => {
             <div className="center"  >
                 <Row>
                     <Col width="5%">No.</Col>
-                    <Col >Group</Col>
-                    <Col width="33%">Name</Col>
-                    <Col >used by</Col>
-                    <Col >used from</Col>
-                    <Col >　<AccountsUIWrapper /></Col>
+                    <Col width="20%" >Group</Col>
+                    <Col>Name</Col>
+                    <Col width="15%">used by/from</Col>
+                    <Col width="15%" ><AccountsUIWrapper /></Col>
                 </Row>
             </div>
             <TaskList navigator={navigator}/>
