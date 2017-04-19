@@ -23,7 +23,7 @@ const LogList = ({currentUser, task}) => {
     };
 
     const formattedDate = date => {
-        if(log.returnedAt = null){
+        if(date == null){
             return "";
         }
         const y = date.getFullYear();
