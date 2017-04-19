@@ -57,7 +57,9 @@ const MainPage = ({currentUser, navigator}) => {
                     {ons.orientation.isLandscape() ?
                         (<Col >Group</Col>):null
                     }
-                    <Col {ons.orientation.isLandscape()?width="50%":null}>Name</Col>
+
+                    <Col >Name</Col>
+
                     {ons.orientation.isLandscape() ?
                         (<Col >used by</Col>):null
                     }

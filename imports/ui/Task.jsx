@@ -80,7 +80,7 @@ const Task = ({currentUser, task, onClick}) => {
         }
 
         // フォーマット整形済みの文字列を戻り値にする
-        return y + '年' + m + '月' + d + '日 (' + wNames[w] + ')';
+        return y + '/' + m + '/' + d;
     };
 
     const usedFrom = () => {
@@ -112,7 +112,7 @@ const Task = ({currentUser, task, onClick}) => {
                     (<Col onClick={onClick}>{task.group}</Col>):null
                 }
 
-                <Col {ons.orientation.isLandscape()?width="50%":null} onClick={onClick}>{task.text}</Col>
+                <Col onClick={onClick}>{task.text}</Col>
 
                 {ons.orientation.isLandscape() ?
                     (<Col onClick={onClick}>{isUsed()}</Col>):null
