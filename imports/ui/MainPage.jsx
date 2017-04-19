@@ -10,6 +10,9 @@ import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 const MainPage = ({ currentUser, navigator}) => {
 
     const handleNewTaskClick = () => {
+        ons.setDefaultDeviceBackButtonListener(function() {
+            navigator.popPage();
+        });
         navigator.pushPage({
             component: NewItemPage,
             key: 'NEW_ITEM_PAGE',
