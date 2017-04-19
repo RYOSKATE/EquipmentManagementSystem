@@ -7,7 +7,7 @@ import TaskList from './TaskList.jsx';
 import NewItemPage from './NewItemPage.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
-const MainPage = ({currentUser, navigator}) => {
+const MainPage = ({ currentUser, navigator}) => {
 
     const handleNewTaskClick = () => {
         navigator.pushPage({
@@ -52,20 +52,12 @@ const MainPage = ({currentUser, navigator}) => {
         >
             <div className="center"  >
                 <Row>
-                    <Col witdh="20%"><AccountsUIWrapper /></Col>
-                    <Col witdh="15%" >Label</Col>
-                    {ons.orientation.isLandscape() ?
-                        (<Col >Group</Col>):null
-                    }
-
-                    <Col >Name</Col>
-
-                    {ons.orientation.isLandscape() ?
-                        (<Col >used by</Col>):null
-                    }
-                    {ons.orientation.isLandscape() ?
-                        (<Col >used from</Col>):null
-                    }
+                    <Col width="5%">No.</Col>
+                    <Col >Group</Col>
+                    <Col width="33%">Name</Col>
+                    <Col >used by</Col>
+                    <Col >used from</Col>
+                    <Col >　<AccountsUIWrapper /></Col>
                 </Row>
             </div>
             <TaskList navigator={navigator}/>

@@ -11,6 +11,10 @@ import App from '../imports/ui/App.jsx';
 
 Meteor.startup(() => {
   ons.ready(() => {
+    // if(ons.platform.isAndroid()){
+    //     ons.forcePlatformStyling("ios");
+    // }
+
     render(<App />, document.getElementById('render-target'));
   });
 });
