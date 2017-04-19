@@ -5,7 +5,7 @@ import { RentalLogs } from '../api/rentallogs.js';
 import { Row, Col, List, ListHeader, ListItem } from 'react-onsenui';
 import { Meteor } from 'meteor/meteor';
 
-const LogList = ({currentUser, task}) => {
+const LogList = ({currentUser, task, logs}) => {
 
     const _renderHeader = () => {
         return(
@@ -72,6 +72,7 @@ LogList.propTypes = {
 
 export default createContainer(() => {
     return {
+        logs: RentalLogs.find({}).fetch(),
         currentUser: Meteor.user()
     };
 }, LogList);
