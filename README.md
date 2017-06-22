@@ -1,4 +1,4 @@
-# Item Management App
+# Equipment Management System
 
 ## Framework
 1. Meteor
